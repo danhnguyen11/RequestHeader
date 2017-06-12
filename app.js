@@ -10,7 +10,10 @@ app.use(cors());
 app.use(useragent.express());
 app.get('/api/whoami/',function(req,res,next){
 
-    var ip = req.ip;
+    var ip = req.headers['x-forwarded-for'] || 
+     req.connection.remoteAddress || 
+     req.socket.remoteAddress ||
+     req.connection.socket.remoteAddress;
     var lang = req.acceptsLanguages();
     var soft = req.useragent.os;
 
