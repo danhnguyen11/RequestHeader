@@ -11,7 +11,7 @@ app.use(useragent.express());
 app.get('/api/whoami/',function(req,res,next){
 
     var ip = req.ip;
-    var lang = req.acceptsLanguages;
+    var lang = req.acceptsLanguages();
     var soft = req.useragent.os;
 
    res.json({ipaddress: ip, language: lang, software: soft});
