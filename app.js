@@ -7,27 +7,13 @@ var app = module.exports = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get('/:dateVal',function(req,res,next){
-   var dateVal = req.params.dateVal;
-  
-   var dateformatttingOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-   };
+app.get('/',function(req,res,next){
 
-   if(isNaN(dateVal)){
-       var naturalDate = new Date(dateVal);
-       naturalDate = naturalDate.toLocaleDateString("en-us", dateformatttingOptions);
-       var unixDate = new Date(dateVal).getTime()/1000;
-   }
-   else{
-       var unixDate = dateVal;
-       var naturalDate = new Date(dateVal*1000);
-       naturalDate = naturalDate.toLocaleDateString("en-us", dateformatttingOptions);
-   }
+    var ip = req.connection.remoteAddress;
+    var lang = req.connection.language;
+    var soft = req.connection.software;
 
-   res.json({unix: unixDate, natural: naturalDate});
+   res.json({ipaddress: ip, language: lang, software: soft});
 });
 
 
