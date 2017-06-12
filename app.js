@@ -13,8 +13,10 @@ app.get('/',function(req,res,next){
      req.connection.remoteAddress || 
      req.socket.remoteAddress ||
      req.connection.socket.remoteAddress;
-    var lang = req.headers["accept-language"]; 
-    var soft = process.platform;
+    var l = [];
+    l = req.headers["accept-language"].split(",");
+    var lang = l[1];
+    var soft = req.headers["user-agent"];
 
    res.json({ipaddress: ip, language: lang, software: soft});
 });
