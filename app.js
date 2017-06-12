@@ -15,7 +15,7 @@ app.get('/',function(req,res,next){
      req.connection.socket.remoteAddress;
     var l = [];
     l = req.headers["accept-language"].split(",");
-    var lang = l[1];
+    var lang = l[0];
     var soft = req.headers["user-agent"];
 
    res.json({ipaddress: ip, language: lang, software: soft});
