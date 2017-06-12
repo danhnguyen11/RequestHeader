@@ -3,20 +3,16 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var port = process.env.PORT
 var app = module.exports = express();
+var useragent = require('express-useragent')
 
 app.use(bodyParser.json());
 app.use(cors());
+app.use(useragent.express());
+app.get('/api/whoami/',function(req,res,next){
 
-app.get('/',function(req,res,next){
-
-    var ip = req.headers['x-forwarded-for'] || 
-     req.connection.remoteAddress || 
-     req.socket.remoteAddress ||
-     req.connection.socket.remoteAddress;
-    var l = [];
-    l = req.headers["accept-language"].split(",");
-    var lang = l[0];
-    var soft = req.headers["user-agent"];
+    var ip = req.ip;
+    var lang = req.acceptsLanguage;
+    var soft = req.useragent.os;
 
    res.json({ipaddress: ip, language: lang, software: soft});
 });
